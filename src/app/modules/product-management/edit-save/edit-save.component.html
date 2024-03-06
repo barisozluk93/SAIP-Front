@@ -1,0 +1,65 @@
+<app-alert #alertComponent>
+</app-alert>
+
+<app-modal #modal [modalConfig]="modalConfig">
+    <form class="form w-100" [formGroup]="form" novalidate="novalidate">
+        <div class="row mb-8">
+            <div class="col-xxl-4">
+                <div class="card card-xl-stretch mb-xl-8">
+                    <div class="card-body py-3">
+                        <div class="mb-2" style="text-align: center; height: 200px;">
+                            <img [src]="fileResult?.fileContents" style="height: 10.75rem; width: 100%; border: 0px !important;">
+                        </div>
+                        <div style="text-align: center;">
+                            <input type="file" style="display:none" accept="image/*" (change)="onFileChange($event)" #fileUpload/>
+                            <a style="width: 100%;" title="Click to Add" class="btn btn-sm btn-light-primary" (click)="fileUpload.click()">
+                                <span [inlineSVG]="'./assets/media/icons/duotune/arrows/arr075.svg'"
+                                    class="svg-icon svg-icon-3"></span>
+                                {{form.controls['id'].value == 0 ? 'Upload' : 'Change'}}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xxl-8">
+                <div class="fv-row mb-8">
+                    <label class="form-label fs-6 fw-bolder text-gray-900">Name</label>
+                    <input class="form-control bg-transparent" type="text" name="name" formControlName="name" autocomplete="off"
+                        [ngClass]="{
+                        'is-invalid': form.controls['name'].invalid,
+                        'is-valid': form.controls['name'].valid
+                      }" />
+                    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                        validation: 'required',
+                        message: 'Name is required',
+                        control: form.controls['name']
+                      }"></ng-container>
+                </div>
+        
+                <div class="fv-row mb-8">
+                    <label class="form-label fs-6 fw-bolder text-gray-900">Price</label>
+                    <input class="form-control bg-transparent" type="number" name="price" formControlName="price" autocomplete="off"
+                        [ngClass]="{
+                        'is-invalid': form.controls['price'].invalid,
+                        'is-valid': form.controls['price'].valid
+                      }" />
+                    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                        validation: 'required',
+                        message: 'Price is required',
+                        control: form.controls['price']
+                      }"></ng-container>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <ng-template #formError let-control="control" let-message="message" let-validation="validation">
+        <ng-container *ngIf="control.hasError(validation) && (control.dirty || control.touched)">
+            <div class="fv-plugins-message-container">
+                <span role="alert">
+                    {{ message }}
+                </span>
+            </div>
+        </ng-container>
+    </ng-template>
+</app-modal>

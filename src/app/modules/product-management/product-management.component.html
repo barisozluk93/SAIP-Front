@@ -1,0 +1,80 @@
+<app-product-editsave #editSaveComponent (isSuccess)="isSuccess($event)">
+</app-product-editsave>
+
+<app-confirmation #confirmationComponent (dismissButtonClick)="delete($event)">
+</app-confirmation>
+
+<app-alert #alertComponent>
+</app-alert>
+
+<div class="card card-xxl-stretch mb-5 mb-xl-8">
+    <div class="card-header border-0 pt-5">
+        <h3 class="card-title align-items-start flex-column">
+            <span class="card-label fw-bolder fs-3 mb-1">{{header}}</span>
+        </h3>
+        <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover">
+            <a *ngIf="hasNewRecordPermission" title="Click to Add" class="btn btn-sm btn-light-primary" (click)="openSaveModal()">
+                <span [inlineSVG]="'./assets/media/icons/duotune/arrows/arr075.svg'" class="svg-icon svg-icon-3"></span>
+                New
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row gy-5 g-xl-8">
+    <ng-container *ngFor="let item of dataSource">
+        <div class="col-xxl-3">
+            <div class="card card-xl-stretch mb-xl-8">
+                <div class="card-header border-1 pt-0">
+                    <h3 class="card-title align-items-start flex-column">
+                    </h3>
+                    <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover">
+
+                        <button *ngIf="hasDeletePermission" type="button" (click)="openDeleteModal(item.id)"
+                            class="btn btn-sm btn-icon btn-color-danger btn-active-light-danger me-4" title="Delete">
+                            <span [inlineSVG]="'./assets/media/icons/duotune/general/gen027.svg'"
+                                class="svg-icon svg-icon-2"></span>
+                        </button>
+                        <button *ngIf="hasEditPermission" type="button" (click)="openEditModal(item.id)"
+                            class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary" title="Edit">
+                            <span [inlineSVG]="'./assets/media/icons/duotune/art/art005.svg'"
+                                class="svg-icon svg-icon-2"></span>
+                        </button>
+
+                    </div>
+                </div>
+                <div class="card-body py-3">
+                    <div class="mb-2" style="text-align: center;">
+                        <img [src]="item.fileResult.fileContents" style="height: 10.75rem; width: auto;">
+                    </div>
+                    <div class="mb-2" style="text-align: center;">
+                        <div class="d-flex justify-content-start flex-column">
+                            <a class="text-gray-900 fw-bolder text-hover-primary fs-6">
+                                {{item.name}}
+                            </a>
+                        </div>
+                    </div>
+                    <div class="mb-5" style="text-align: center;">
+                        <div class="d-flex justify-content-start flex-column">
+                            <a class="fw-bolder text-primary-900 fs-6">
+                                {{item.price}} ₺
+                            </a>
+                        </div>
+                    </div>
+                    <div style="text-align: center;">
+                        <a style="width: 100%;" title="Click to Add" class="btn btn-sm btn-light-primary">
+                            <span [inlineSVG]="'./assets/media/icons/duotune/arrows/arr075.svg'"
+                                class="svg-icon svg-icon-3"></span>
+                            Add to Basket
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+
+    <ngb-pagination [collectionSize]="totalCount" [(page)]="paginationModel.pageNumber"
+        [pageSize]="paginationModel.pageSize" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
+        (pageChange)="onPageChanges()">
+    </ngb-pagination>
+</div>
