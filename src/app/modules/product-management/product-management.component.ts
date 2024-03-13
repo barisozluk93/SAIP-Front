@@ -7,6 +7,8 @@ import { PermissionEnum } from 'src/app/enums/permission.enum';
 import { AuthService } from '../auth';
 import { ProductManagementService } from './product-management.service';
 import { ProductEditSaveComponent } from './edit-save/edit-save.component';
+import { ProductModel } from './models/product.model';
+import { BasketService } from 'src/app/_metronic/partials/layout/basket/basket.service';
 
 @Component({
   selector: 'app-product-management',
@@ -23,12 +25,26 @@ export class ProductManagementComponent implements OnInit, OnDestroy {
   hasDeletePermission: boolean;
   hasNewRecordPermission: boolean;
 
-  constructor(private productManagementService: ProductManagementService, private authService: AuthService) {}
+  constructor(private productManagementService: ProductManagementService, private authService: AuthService, private basketService: BasketService) {
+  }
 
   header: string = "Ürünler";
   dataSource: any[];
   totalCount: number;
   paginationModel: PaginationModel;
+
+  addToBasket(item: ProductModel) {
+    var basket = JSON.parse(localStorage.getItem("basket") as string) as ProductModel[];
+
+    if(basket) {
+      basket.push(item);
+    }
+    else{
+      basket = [item];
+    }
+
+    this.basketService.setBasket(basket);
+  }
 
   controlPermissions() {
     this.authService.currentUserSubject.asObservable().subscribe(result => {

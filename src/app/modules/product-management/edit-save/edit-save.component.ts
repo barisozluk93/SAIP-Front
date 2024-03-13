@@ -70,15 +70,15 @@ export class ProductEditSaveComponent {
             let formData = new FormData();
             formData.append("file", file);
 
-            // this.productManagementService.upload(formData).subscribe(result => {
-            //     if(result.isSuccess) {
-            //         this.alertComponent.alert("success", result.message);
-            //         this.form.get("fileId")?.setValue(result.data.id);
-            //     }
-            //     else{
-            //         this.alertComponent.alert("danger", result.message);
-            //     }
-            // })
+            this.productManagementService.upload(formData).subscribe(result => {
+                if(result.isSuccess) {
+                    this.alertComponent.alert("success", result.message);
+                    this.form.get("fileId")?.setValue(result.data.id);
+                }
+                else{
+                    this.alertComponent.alert("danger", result.message);
+                }
+            })
         }        
     }
     
@@ -114,7 +114,8 @@ export class ProductEditSaveComponent {
     submit() {
         if(this.form.valid) {
             var data = this.form.getRawValue() as ProductModel;
-
+            data.fileResult = null;
+            
             if(data.id == 0) {
                 this.productManagementService.save(data).subscribe(result => {
                     if(result.isSuccess) {

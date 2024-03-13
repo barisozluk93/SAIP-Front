@@ -15,7 +15,7 @@
                             <a style="width: 100%;" title="Click to Add" class="btn btn-sm btn-light-primary" (click)="fileUpload.click()">
                                 <span [inlineSVG]="'./assets/media/icons/duotune/arrows/arr075.svg'"
                                     class="svg-icon svg-icon-3"></span>
-                                {{form.controls['id'].value == 0 ? 'Upload' : 'Change'}}
+                                {{fileResult == undefined ? 'Upload' : 'Change'}}
                             </a>
                         </div>
                     </div>

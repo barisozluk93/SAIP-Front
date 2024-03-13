@@ -16,8 +16,6 @@ const API_FILE_URL = `${environment.apiUrl}/File`;
 })
 export class ProductManagementService {
 
-    private authLocalStorageToken = `${environment.appVersion}-${environment.USERDATA_KEY}`;
-
     constructor(private http: HttpClient) { }
 
     // public methods
@@ -46,25 +44,7 @@ export class ProductManagementService {
         return this.http.delete<ResultModel<ProductModel>>(`${API_PRODUCT_URL}/Delete/${id}`);
     }
 
-    // upload(data: FormData): Observable<ResultModel<FileModel>> {
-    //     return new Observable(promise => {
-    //         let currentUser = localStorage.getItem(this.authLocalStorageToken)
-
-    //         var user: AuthModel = currentUser ? JSON.parse(currentUser) : '';
-    //         const token = user.accessToken
-
-    //         let ths = this;
-    //         this.request.onreadystatechange = function () {
-    //             if (ths.request.readyState === 4) {
-    //                 if (ths.request.status === 200) {
-    //                   promise.next(JSON.parse(ths.request.response))
-    //                 }
-    //             }
-    //         }
-      
-    //         this.request.open("POST", `${API_FILE_URL}/Save`, true);
-    //         this.request.setRequestHeader("Authorization", `Bearer ${token}`);
-    //         this.request.send(data);
-    //       });
-    // }
+    upload(data: FormData): Observable<ResultModel<FileModel>> {
+        return this.http.post<ResultModel<FileModel>>(`${API_FILE_URL}/Save`, data);
+    }
 }

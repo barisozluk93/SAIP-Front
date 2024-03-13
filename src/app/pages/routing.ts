@@ -64,6 +64,11 @@ const Routing: Routes = [
       import('../modules/product-management/product-management.module').then((m) => m.ProductManagementModule),
   },
   {
+    path: 'basketmanagement',
+    loadChildren: () =>
+      import('../modules/basket-management/basket-management.module').then((m) => m.BasketManagementModule),
+  },
+  {
     path: '',
     redirectTo: '/dashboard',
     pathMatch: 'full',
