@@ -39,11 +39,6 @@ const Routing: Routes = [
       import('../modules/apps/chat/chat.module').then((m) => m.ChatModule),
   },
   {
-    path: 'map',
-    loadChildren: () =>
-      import('../modules/map/map.module').then((m) => m.MapModule),
-  },
-  {
     path: 'menumanagement',
     loadChildren: () =>
       import('../modules/menu-management/menu-management.module').then((m) => m.MenuManagementModule),

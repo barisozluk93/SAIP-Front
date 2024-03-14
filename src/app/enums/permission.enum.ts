@@ -14,7 +14,7 @@ export enum PermissionEnum {
     "MenuScene.Save.Permission" = 18,
     "MenuScene.Edit.Permission" = 19,
     "MenuScene.Delete.Permission" = 20,
-    "ProductScene.Save.Permission" = 24,
-    "ProductScene.Edit.Permission" = 25,
-    "ProductScene.Delete.Permission" = 26,
+    "ProductScene.Save.Permission" = 23,
+    "ProductScene.Edit.Permission" = 24,
+    "ProductScene.Delete.Permission" = 25,
   }
